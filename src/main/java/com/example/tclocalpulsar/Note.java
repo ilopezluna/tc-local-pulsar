@@ -1,4 +1,4 @@
-package com.example.tclocaldev;
+package com.example.tclocalpulsar;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.tclocaldev;
+package com.example.tclocalpulsar;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

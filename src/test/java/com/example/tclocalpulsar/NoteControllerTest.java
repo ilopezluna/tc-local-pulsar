@@ -1,4 +1,4 @@
-package com.example.tclocaldev;
+package com.example.tclocalpulsar;
 
 import org.junit.jupiter.api.Test;
 

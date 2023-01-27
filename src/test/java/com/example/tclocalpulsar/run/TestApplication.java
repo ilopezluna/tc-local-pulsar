@@ -1,7 +1,7 @@
-package com.example.tclocaldev.run;
+package com.example.tclocalpulsar.run;
 
-import com.example.tclocaldev.AbstractIntegrationTest;
-import com.example.tclocaldev.Application;
+import com.example.tclocalpulsar.AbstractIntegrationTest;
+import com.example.tclocalpulsar.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import reactor.core.publisher.Hooks;
