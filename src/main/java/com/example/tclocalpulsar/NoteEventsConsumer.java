@@ -2,6 +2,7 @@ package com.example.tclocalpulsar;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.pulsar.common.schema.SchemaType;
 import org.springframework.pulsar.reactive.config.annotation.ReactivePulsarListener;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -13,11 +14,9 @@ public class NoteEventsConsumer {
 
     final EventRepository eventRepository;
 
-    @ReactivePulsarListener(topics = Application.TOPIC)
-    Mono<Void> listen(Long noteId) {
-        log.info("Received noteId: {}", noteId);
-        var event = new Event();
-        event.setNoteId(noteId);
+    @ReactivePulsarListener(topics = Application.TOPIC, schemaType = SchemaType.JSON)
+    Mono<Void> listen(Event event) {
+        log.info("Received event: {}", event);
         return eventRepository.save(event).then();
     }
 }

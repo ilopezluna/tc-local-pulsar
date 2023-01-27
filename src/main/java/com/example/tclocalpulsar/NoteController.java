@@ -1,6 +1,7 @@
 package com.example.tclocalpulsar;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.pulsar.client.api.Schema;
 import org.springframework.pulsar.reactive.core.ReactivePulsarTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class NoteController {
 
     final NoteRepository repository;
 
-    final ReactivePulsarTemplate<Long> pulsarTemplate;
+    final ReactivePulsarTemplate<Event> pulsarTemplate;
 
     @GetMapping(URI)
     Flux<Note> findAll() {
@@ -28,6 +29,13 @@ public class NoteController {
 
     @PostMapping(URI)
     Mono<Note> save(@RequestBody Note note) {
-        return repository.save(note).delayUntil(n -> pulsarTemplate.send(TOPIC, note.getId()));
+        return repository
+            .save(note)
+            .delayUntil(n -> {
+                pulsarTemplate.setSchema(Schema.JSON(Event.class));
+                var event = new Event();
+                event.setNoteId(note.getId());
+                return pulsarTemplate.send(TOPIC, event);
+            });
     }
 }
