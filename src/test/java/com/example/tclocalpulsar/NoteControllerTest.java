@@ -30,7 +30,7 @@ class NoteControllerTest extends AbstractIntegrationTest {
     @Test
     void save() {
         var note = new Note();
-        var text = RandomStringUtils.random(10);
+        var text = RandomStringUtils.randomAlphabetic(10);
         note.setText(text);
         webTestClient
             .post()

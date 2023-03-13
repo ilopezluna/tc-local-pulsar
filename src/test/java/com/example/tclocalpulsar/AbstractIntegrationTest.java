@@ -48,7 +48,7 @@ public class AbstractIntegrationTest {
 
         public static Map<String, Object> getProperties() {
             Startables.deepStart(postgresSQL, pulsar).join();
-            setupEventsTopic(pulsar.getHttpServiceUrl(), Application.TOPIC);
+            setupTopic(pulsar.getHttpServiceUrl(), Application.TOPIC);
 
             return Map.of(
                 "spring.r2dbc.url",
@@ -79,7 +79,7 @@ public class AbstractIntegrationTest {
         }
 
         @SneakyThrows
-        public static void setupEventsTopic(String httpServiceUrl, String topic) {
+        public static void setupTopic(String httpServiceUrl, String topic) {
             try (var pulsarAdmin = PulsarAdmin.builder().serviceHttpUrl(httpServiceUrl).build()) {
                 if (pulsarAdmin.tenants().getTenants().contains(TENANT)) {
                     // for reusable containers case
