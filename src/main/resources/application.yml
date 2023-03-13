@@ -4,3 +4,9 @@ spring:
     locations: classpath:db/migration
     password: ${spring.r2dbc.password}
     user: ${spring.r2dbc.username}
+  pulsar:
+    producer:
+      topic-name: notes
+    consumer:
+      subscription-name: example-subscription
+      consumer-name: example-consumer-name

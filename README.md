@@ -10,4 +10,4 @@ Spring Boot application connected to a Postgres database. Configured for local d
 
 ## Running the project
 - Import project into your IDE
-- Run `com.example.tclocaldev.run.TestApplication`
+- Run `com.example.tclocalpulsar.run.TestApplication`

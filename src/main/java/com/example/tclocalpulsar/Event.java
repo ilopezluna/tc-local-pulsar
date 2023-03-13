@@ -1,19 +1,17 @@
-package com.example.tclocaldev;
+package com.example.tclocalpulsar;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "notes")
-public class Note {
+@Table(name = "events")
+public class Event {
 
-    @Id
-    private Long id;
+    private String id;
 
-    private String text;
+    private Long noteId;
 }

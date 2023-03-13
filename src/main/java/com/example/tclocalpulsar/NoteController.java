@@ -1,5 +1,7 @@
-package com.example.tclocaldev;
+package com.example.tclocalpulsar;
 
+import com.example.tclocalpulsar.pulsar.NoteEventsProducer;
+import com.example.tclocalpulsar.pulsar.events.NoteCreated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ public class NoteController {
     public static final String URI = "/notes";
 
     final NoteRepository repository;
+    final NoteEventsProducer noteEventsProducer;
 
     @GetMapping(URI)
     Flux<Note> findAll() {
@@ -23,6 +26,9 @@ public class NoteController {
 
     @PostMapping(URI)
     Mono<Note> save(@RequestBody Note note) {
-        return repository.save(note);
+        return repository
+            .save(note)
+            .delayUntil(stored -> noteEventsProducer.sendNoteEvent(NoteCreated.builder().noteId(stored.getId()).build())
+            );
     }
 }
